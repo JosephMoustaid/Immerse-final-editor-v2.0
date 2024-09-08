@@ -1,0 +1,59 @@
+#model{
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    z-index: 9999;
+    overflow: hidden;
+  }
+  #info{
+    position: relative;
+    width:50%;
+    margin: 15% auto 0 auto;
+    background: rgba(0,0,0,0.5);
+    padding: 1%;
+    color: white;
+    font-family: lato;
+  }
+  #close {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: rgba(255,60,65,1);
+    position: absolute;
+    z-index: 9999;
+    top: -1.5rem;
+    right: 0;
+    cursor: pointer;
+  }
+  #close::before{
+    font-family: lato;
+    position: absolute;
+    top: 25%;
+    right: 100%;
+    color: white;
+    text-transform: uppercase;
+  }
+  .hide{
+    animation: hide 2s forwards cubic-bezier(.31,-0.4,.15,1.01);
+  }
+  .desktop{
+    display: none;
+  }
+  @keyframes hide{
+    99%{
+      transform: translateX(100%);
+    }
+    100%{
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  @media (min-width: 1024px){
+    .mobile{
+      display: none;
+    }
+    .desktop{
+      display: inherit;
+    }
+  }
+  
