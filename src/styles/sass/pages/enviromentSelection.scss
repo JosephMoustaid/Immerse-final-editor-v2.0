@@ -1,0 +1,65 @@
+.environment-selection-page {
+  text-align: center;
+  padding: 20px;
+}
+
+.environment-options {
+  max-width: min-content; 
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  margin: auto;
+  height: auto; 
+  align-self: center; 
+}
+
+.environment-options .lab {
+  background-image: url("../../assets/images/itLab.png");
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat; 
+  width: 300px; 
+  height: 200px;
+}
+
+.environment-options .school {
+  background-image: url("../../assets/images/uniHall.png");
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  width: 300px; 
+  height: 200px; 
+  
+}
+
+.environment-option {
+  height: 200px;
+  width: 300px;
+  margin: 10px;
+  background-color: lightgray;
+  color: black;
+  padding-left: 5px;
+  display: flex;
+  justify-content: start;
+  align-items: end;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s ease;
+  border-radius: 15px;
+
+  &:hover{
+    scale: 1.01;
+    transition: scale 0.3s ease-in-out ;
+  }
+}
+
+.environment-option.selected {
+  border-color: $primary;
+}
+
+button {
+  border-width: 4px;
+  margin-top: 20px;
+}
+
+  

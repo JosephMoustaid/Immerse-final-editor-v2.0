@@ -1,3 +1,46 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Comforter+Brush&family=Oswald&display=swap");
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+body {
+  background: black;
+  font-family: "Oswald", sans-serif;
+}
 
 .m1 {
   margin: 1em 1em 1em 1em;
@@ -174,6 +217,68 @@ button, input[type=button], input[type=submit] {
     display: inherit;
   }
 }
+.environment-selection-page {
+  text-align: center;
+  padding: 20px;
+}
+
+.environment-options {
+  max-width: min-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  height: auto;
+  align-self: center;
+}
+
+.environment-options .lab {
+  background-image: url("../../assets/images/itLab.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 200px;
+}
+
+.environment-options .school {
+  background-image: url("../../assets/images/uniHall.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 300px;
+  height: 200px;
+}
+
+.environment-option {
+  height: 200px;
+  width: 300px;
+  margin: 10px;
+  background-color: lightgray;
+  color: black;
+  padding-left: 5px;
+  display: flex;
+  justify-content: start;
+  align-items: end;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.3s ease;
+  border-radius: 15px;
+}
+.environment-option:hover {
+  scale: 1.01;
+  transition: scale 0.3s ease-in-out;
+}
+
+.environment-option.selected {
+  border-color: #DC28E4;
+}
+
+button {
+  border-width: 4px;
+  margin-top: 20px;
+}
+
 /*!
  * Bootstrap  v5.3.3 (https://getbootstrap.com/)
  * Copyright 2011-2024 The Bootstrap Authors

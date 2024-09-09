@@ -7,12 +7,14 @@ import './components/CustomLookControls';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LabEditor from './pages/LabEditor';
 import SchoolEditor from './pages/SchoolEditor';
-
+import EnviromentSelection from './pages/EnviromentSelection';
+import "./styles/css/style.css";
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="" element={<EnviromentSelection />} />
         <Route path="/labEditor" element={<LabEditor />} />
         <Route path="/SchoolEditor" element={<SchoolEditor />} />
       </Routes>

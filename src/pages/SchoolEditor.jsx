@@ -252,8 +252,8 @@ function SchoolEditor(){
                     my-custom-look-controls
                     camera-collider="speed: 1; radius: 0.5"
                     ref={cameraRef}
-                    rotation="0 0 0"
-                    position="0 8 0"
+                    rotation="0 180 0"
+                    position="0 4 50"
                     >
                     <a-cursor></a-cursor>
                 </a-entity>
