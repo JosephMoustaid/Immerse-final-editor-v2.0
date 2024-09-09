@@ -1,3 +1,4 @@
+import React from "react";
 import { GrResources } from "react-icons/gr";
 import { FaRegFilePdf } from "react-icons/fa";
 import { IoHelp } from "react-icons/io5";
@@ -15,20 +16,30 @@ import wallTexture from "../assets/textures/blueWall2.jpg";
 import lights from "../assets/3D_Components/ceiling_lamp_-_11mb.glb";
 import floorTexture from "../assets/textures/floor6.jpg";
 import ceilingTexture from "../assets/textures/ceilingLamps.jpg"
-import teacherDesk from "../assets/3D_Components/teacher_desk.glb";
 import ProjectorScreen from "../assets/3D_Components/projector_screen.glb"; 
 import Projector from "../assets/3D_Components/projector.glb"; 
-import WindowBlind from "../assets/3D_Components/window.glb";
-import DeskEntity from '../components/DeskEntity.jsx';
-import deskShelf from "../assets/3D_Components/ikea_fjallbo_wall_shelf.glb";
-import arduinoProject1 from "../assets/3D_Components/arduinoProject1.glb";
-import motor1 from "../assets/3D_Components/motor1.glb";
-import SharedDesk from "../components/SharedDesk.jsx";
-import TofferLights from "../components/TofferLights.jsx";
-import securityCamera from "../assets/3D_Components/security_camera.glb";
 import AC from "../assets/3D_Components/conditioner_slide_dc.glb";
+import tofferLights from "../assets/3D_Components/troffer_light_3d_model.glb";
+import schoolHall from "../assets/3D_Components/theater_cinema_auditorium_style_1_of_2.glb";
+import woodTexture from "../assets/textures/wood5.webp";
+import podium from "../assets/3D_Components/podium.glb";
+import roundDesk from "../assets/3D_Components/secretary_desk_-_20mb.glb"
+import officeChair from "../assets/3D_Components/office_chair_modern.glb"
+import laptop from "../assets/3D_Components/laptop_free.glb"
+import deskLights from "../assets/3D_Components/desk_lamp_grren.glb"
+function SchoolEditor(){
 
-function LabEditor(){
+    const lampPositions = [
+        // First row
+        [{ x: 0, z: 93 }, { x: -40, z: 93 }, { x: 40, z: 93 }, { x: -80, z: 93 }, { x: 80, z: 93 }],
+        // Second row
+        [{ x: 0, z: 50 }, { x: -40, z: 50 }, { x: 40, z: 50 }, { x: -80, z: 50 }, { x: 80, z: 50 }, { x: 120, z: 50 }, { x: -120, z: 50 }],
+        // Third row
+        [{ x: 0, z: 0 }, { x: -40, z: 0 }, { x: 40, z: 0 }, { x: -80, z: 0 }, { x: 80, z: 0 }, { x: 120, z: 0 }, { x: -120, z: 0 }, { x: 160, z: 0 }, { x: -160, z: 0 }],
+        // Fourth row
+        [{ x: 0, z: -50 }, { x: -40, z: -50 }, { x: 40, z: -50 }, { x: -80, z: -50 }, { x: 80, z: -50 }, { x: 120, z: -50 }, { x: -120, z: -50 }, { x: 160, z: -50 }, { x: -160, z: -50 }, { x: 200, z: -50 }, { x: -200, z: -50 }]
+    ];
+
     const sceneRef = useRef(null);
     const cameraRef = useRef(null);
    
@@ -131,245 +142,102 @@ function LabEditor(){
                       key={asset.id}
                       class="selectable collidable"
                       src={asset.src}
-                      position="10 8 10"
+                      position="0 0 -3"
                       scale="1 1 1"
                       rotation="0 0 0"
                       material="color: #00FF00"
                     ></a-gltf-model>
                   )
                 ))}
-                <TofferLights />
 
-                    
-                {/* Floor */}
-                <a-plane 
-                    rotation="-90 0 0" 
-                    width="80" // Doubled the width
-                    height="80" // Doubled the height
-                    material={`src: url(${floorTexture}); repeat: 4 5`}  
-                    class="collidable"
-                />
-                {/* Teacher Desk */}
-                <a-gltf-model 
-                     src={teacherDesk} 
-                     position="-30 1.9 0" 
-                     scale=".09 .09 .09"
-                     rotation="0 180 0"
-                    class="collidable"
-                ></a-gltf-model>
-                 {/* Walls */}
-                <a-box 
-                    position="0 10 -40" 
-                    rotation="0 0 0" 
-                    width="80" 
-                    height="20" 
-                    depth="0.1" 
-                    material={`src: url(${wallTexture}); repeat: 4 2`}  
-                    src={wallTexture}
-                    class="collidable "
+                {lampPositions.map((row, rowIndex) => (
+                    <React.Fragment key={rowIndex}>
+                        {row.map((pos, lampIndex) => (
+                            <React.Fragment key={lampIndex}>
+                                <a-gltf-model src={tofferLights} scale="3 3 3" position={`${pos.x} 101 ${pos.z}`} rotation="0 90 0"></a-gltf-model>
+                                {(lampIndex % 2 == 0) && ( <a-light type="spot" position={`${pos.x} 40 ${pos.z}`} intensity="0.9" distance="80" angle="45" penumbra="0.3" castShadow="true" rotation="-90 0 0" color="#fff4bf"></a-light>)}
+                            </React.Fragment>
+                        ))}
+                    </React.Fragment>
+                ))}
+                <a-entity light="type: directional; color: #fffaa1; intensity: 0.6" position="0 100 30"></a-entity>
 
-                />
+                <a-light type="spot" position="0 80 40" intensity="11" distance="100" color="fffbb8" angle="60" penumbra="0.5" castShadow="true" rotation="-90 0 0"></a-light>
 
-                <a-box 
-                    position="40 10 0" 
-                    rotation="0 -90 0" 
-                    width="80" 
-                    height="20" 
-                    depth="0.1" 
-                    material={`src: url(${wallTexture}); repeat: 4 2`}  
-                    src={wallTexture}
-                    repeat="4 2"
-                    class="collidable "
-                />
+                <a-entity light="type: ambient; intensity: 0.1"></a-entity>
 
-                <a-box 
-                    position="-40 10 0" 
-                    rotation="0 90 0" 
-                    width="80" 
-                    height="20" 
-                    depth="0.1" 
-                    material={`src: url(${wallTexture}); repeat: 4 2`}  
-                    src={wallTexture}
-                    class="collidable "
-                />
+                <a-box position="0 30 154" width="310" height="150" depth="1" class="collidable" material="src:#CeilingTexture;"></a-box>
 
-                <a-box 
-                    position="0 10 40" 
-                    rotation="0 180 0" 
-                    width="80" 
-                    height="20" 
-                    depth="0.1" 
-                    material={`src: url(${wallTexture});repeat: 4 2`}  
-                    src={wallTexture}
-                    class="collidable "
-                />
 
-                {/* Ceiling */}
-                <a-plane 
-                    position="0 20 0" 
-                    rotation="90 0 0" 
-                    width="80" 
-                    height="80" 
-                    material={`src: url(${ceilingTexture}); repeat: 2 3`}  
-                    src={ceilingTexture}
-                    class="collidable"
-                />
+                <a-box position="0 -20 85" width="250" height="3" depth="60" material={`src: url(${woodTexture});`}   ></a-box>
+                <a-box position="0 -17 133" width="250" height="3" depth="40" material={`src: url(${woodTexture});`}  ></a-box> 
 
-                {/* Projector screen */}
-                <a-gltf-model 
-                    src={ProjectorScreen} 
-                    position="79 30 -17" 
-                    scale="4 10 6"
-                    rotation="0 0 0"
-                ></a-gltf-model>
-                {/*The video is projected in the projetor screen */}
+                <a-gltf-model src={schoolHall} scale=".37 .37 .37" position="0 -20 0"></a-gltf-model>
 
+                <a-box position="0 30 154" width="310" height="150" depth="1" material="src:#CeilingTexture;"></a-box>
+
+                <a-gltf-model id="projectorScreen" src={ProjectorScreen} scale="20 20 20" position="0 60 150" rotation="0 90 0"></a-gltf-model>
+
+
+                <a-gltf-model src={podium} scale="1 1 1" position="0 -13 109" rotation="0 180 0"></a-gltf-model>
+                <a-gltf-model src={roundDesk} scale="10 10 10" position="0 -18 90" rotation="0 180 0"></a-gltf-model>
+                <a-gltf-model src={laptop} scale=".03 .03 .03" position="0 -8 82"></a-gltf-model>
+                <a-gltf-model src={deskLights} scale="3 3 3" position="-15 -8 82" rotation="0 43 0"></a-gltf-model>
+
+                <a-light type="spot" position="-15 -4 82" intensity="11" distance="20" angle="60" penumbra="0.5" castShadow="true" rotation="-90 0 0"></a-light>
+
+                <a-gltf-model src={officeChair} scale="14 14 14" position="0 -18 93" rotation="0 224 0"></a-gltf-model>
 
                 {/* Projector  */}
                 <a-gltf-model 
                     src={Projector} 
-                    position="50 33 -17" 
-                    scale="10 10 10"
-                    rotation="0 90 0"
+                    position="0 90 -17" 
+                    scale="20 30 20"
+                    rotation="0 0 0"
                 ></a-gltf-model>
 
-                <a-entity>
-                    <a-gltf-model 
-                        src={WindowBlind} 
-                        position="-18 8 39.5" 
-                        scale="2 2 2"
-                        rotation="0 0 0"
-                    ></a-gltf-model>
-                    <a-gltf-model 
-                        src={WindowBlind} 
-                        position="0 8 39.5" 
-                        scale="2 2 2"
-                        rotation="0 0 0"
-                    ></a-gltf-model>
-                    <a-gltf-model 
-                        src={WindowBlind} 
-                        position="18 8 39.5" 
-                        scale="2 2 2"
-                        rotation="0 0 0"
-                    ></a-gltf-model>
-                </a-entity>
 
-                <a-entity>
-                    <a-gltf-model 
-                        src={WindowBlind} 
-                        position="-18 8 -39.5" 
-                        scale="2 2 2"
-                        rotation="0 180 0"
-                    ></a-gltf-model>
-                    <a-gltf-model 
-                        src={WindowBlind} 
-                        position="0 8 -39.5" 
-                        scale="2 2 2"
-                        rotation="0 180 0"
-                    ></a-gltf-model>
-                    <a-gltf-model 
-                        src={WindowBlind} 
-                        position="18 8 -39.5" 
-                        scale="2 2 2"
-                        rotation="0 180 0"
-                    ></a-gltf-model>
-                </a-entity>
-
-
-                {/* Desks with chairs with lights and pcs */}
-                <DeskEntity position="-24 0 -36" rotation="0 0 0"/>
-                <DeskEntity position="-12 0 -36" rotation="0 0 0"/>
-                <DeskEntity position="0 0 -36"rotation="0 0 0" />
-                <DeskEntity position="12 0 -36" rotation="0 0 0"/>
-                <DeskEntity position="24 0 -36" rotation="0 0 0"/>
-
-
-                <DeskEntity position="-24 0 36" rotation="0 180 0"/>
-                <DeskEntity position="-12 0 36" rotation="0 180 0"/>
-                <DeskEntity position="0 0 36" rotation="0 180 0"/>
-                <DeskEntity position="12 0 36" rotation="0 180 0"/>
-                <DeskEntity position="24 0 36" rotation="0 180 0"/>
-
-
-
-                <SharedDesk position='0 0 0' rotation='0 0 0'/>
-                <SharedDesk position='0 0 -20' rotation='0 0 0'/>
-       
-                <a-entity>
-                    <a-gltf-model 
-                        src={deskShelf} 
-                        position="34.5 5 -38.7" 
-                        scale="13 13 8"
-                        rotation="0 -90 0"
-                        class="collidable"
-                    ></a-gltf-model>
-                    <a-gltf-model 
-                        src={arduinoProject1} 
-                        position="33 6.9 -38" 
-                        scale=".5 .5 .5"
-                        rotation="0 0 0"
-                        class="collidable"
-                        grabbable
-                    ></a-gltf-model>
-                    <a-gltf-model 
-                        src={deskShelf} 
-                        position="34.5 8 -38.7" 
-                        scale="13 13 8"
-                        rotation="0 -90 0"
-                        class="collidable"
-                    ></a-gltf-model>
-                    <a-gltf-model 
-                        src={motor1} 
-                        position="35 9.4 -38.5" 
-                        scale="6 6 6"
-                        rotation="0 90 0"
-                        class="collidable"
-                    ></a-gltf-model>
-                </a-entity>
-                
-                  <a-gltf-model  
-                      src={securityCamera}
-                      position="-39 20 -39"
-                      scale=".5 .5 .5"
-                      rotation="180 -120 0"
-                  ></a-gltf-model>
-                  <a-gltf-model  
-                      src={securityCamera}
-                      position="39 20 39"
-                      scale=".5 .5 .5"
-                      rotation="180 50 0"
-                  ></a-gltf-model>
-
-
-              <a-gltf-model 
-                  src={ProjectorScreen} 
-                  position="39.4 15 -17" 
-                  scale="2 4 4"
-                  rotation="0 0 0"
-                  class="collidable"
-              ></a-gltf-model>
-
-              <a-gltf-model 
-                  src={Projector} 
-                  position="30 18 -17" 
-                  scale="5 5 5"
-                  rotation="0 90 0"
-                  
-              ></a-gltf-model>
+   
 
                 <a-gltf-model  
                     src={AC}
-                    position="39 18 5"
-                    rotation="0 -90 0"
-                    scale="13 9 4"
+                    position="39 78 -185"
+                    rotation="0 0 0"
+                    scale="30 20 20"
                 ></a-gltf-model>
                 <a-gltf-model  
                     src={AC}
-                    position="-39 18 0"
-                    rotation="0 90 0"
-                    scale="13 9 4"
+                    position="-39 78 -185"
+                    rotation="0 0 0"
+                    scale="30 20 20"
+                ></a-gltf-model>  
+                <a-gltf-model  
+                    src={AC}
+                    position="80 78 -185"
+                    rotation="0 0 0"
+                    scale="30 20 20"
+                ></a-gltf-model>
+                <a-gltf-model  
+                    src={AC}
+                    position="-80 78 -185"
+                    rotation="0 0 0"
+                    scale="30 20 20"
                 ></a-gltf-model>  
 
+                <a-gltf-model  
+                    src={AC}
+                    position="200 78 -155"
+                    rotation="0 -20 0"
+                    scale="30 20 20"
+                ></a-gltf-model>
+                <a-gltf-model  
+                    src={AC}
+                    position="-200 78 -155"
+                    rotation="0 20 0"
+                    scale="30 20 20"
+                ></a-gltf-model>  
+
+                
                 <a-entity
                     id="camera"
                     camera
@@ -467,4 +335,4 @@ function LabEditor(){
 
     );
 }
-export default LabEditor;
+export default SchoolEditor;

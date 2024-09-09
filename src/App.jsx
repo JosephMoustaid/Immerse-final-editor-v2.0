@@ -6,6 +6,7 @@ import 'aframe-event-set-component';
 import './components/CustomLookControls';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LabEditor from './pages/LabEditor';
+import SchoolEditor from './pages/SchoolEditor';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/labEditor" element={<LabEditor />} />
+        <Route path="/SchoolEditor" element={<SchoolEditor />} />
       </Routes>
     </Router>
   );
