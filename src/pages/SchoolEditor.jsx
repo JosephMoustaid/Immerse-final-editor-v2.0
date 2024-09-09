@@ -266,7 +266,7 @@ function SchoolEditor(){
                 )}
                 {pdf.visible && (
                     <PdfViewer 
-                    pdf={pdf}
+                    pdf={PDF}
                     scale={4}
                     rotation="-2 210 0"
                     position="50 0 115"

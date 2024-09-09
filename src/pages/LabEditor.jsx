@@ -391,7 +391,7 @@ function LabEditor(){
                 )}
                 {pdf.visible && (
                     <PdfViewer 
-                    pdf={pdf}
+                    pdf={PDF}
                     scale={2.5}
                     rotation="0 -90 0"
                     position="32 5 20" />
