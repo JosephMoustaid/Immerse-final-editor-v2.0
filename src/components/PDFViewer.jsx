@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import pdfToImages from './PDFToImages';
-
+import arrowImage from "../assets/icons/next.png";
 
 function PDFViewer({ pdf, scale = 1, position, rotation }) {
   const [images, setImages] = useState([]);
@@ -18,6 +18,14 @@ function PDFViewer({ pdf, scale = 1, position, rotation }) {
 
     loadPdfImages();
   }, [pdf]);
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, images.length));
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
 
 
   // Provide default values for position and rotation if not passed
@@ -38,7 +46,21 @@ function PDFViewer({ pdf, scale = 1, position, rotation }) {
             class="selectable"
           />
 
-          
+        <a-entity position="0 1.6 -1.5">
+            <a-image 
+              src={arrowImage} 
+              rotation="0 180 0"  
+              onClick={handlePrevPage} 
+              position={`${-1.3 * scale} 0 0`} 
+              scale={`${0.4 * scale} ${0.4 * scale} ${0.4 * scale}`} 
+            />
+          <a-image 
+              src={arrowImage} 
+              position={`${1.3 * scale} 0 0`} 
+              onClick={handleNextPage} 
+              scale={`${0.4 * scale} ${0.4 * scale} ${0.4 * scale}`} 
+            />
+          </a-entity>
 
         </>
       ) : (
