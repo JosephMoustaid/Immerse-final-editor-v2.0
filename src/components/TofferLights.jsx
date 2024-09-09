@@ -16,7 +16,7 @@ function TofferLights() {
                     row.map((position, colIndex) => (
                         <a-entity 
                             key={`${rowIndex}-${colIndex}`} 
-                            light="type: point; intensity: 0.6; distance: 20" 
+                            light="type: point; intensity: 1; distance: 25" 
                             position={position}
                         ></a-entity>
                     ))

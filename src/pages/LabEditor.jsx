@@ -25,6 +25,8 @@ import arduinoProject1 from "../assets/3D_Components/arduinoProject1.glb";
 import motor1 from "../assets/3D_Components/motor1.glb";
 import SharedDesk from "../components/SharedDesk.jsx";
 import TofferLights from "../components/TofferLights.jsx";
+import securityCamera from "../assets/3D_Components/security_camera.glb";
+import AC from "../assets/3D_Components/conditioner_slide_dc.glb";
 
 function LabEditor(){
     const sceneRef = useRef(null);
@@ -210,6 +212,7 @@ function LabEditor(){
                     height="80" 
                     material={`src: url(${ceilingTexture}); repeat: 2 3`}  
                     src={ceilingTexture}
+                    class="collidable"
                 />
 
                 {/* Projector screen */}
@@ -298,12 +301,14 @@ function LabEditor(){
                         position="34.5 5 -38.7" 
                         scale="13 13 8"
                         rotation="0 -90 0"
+                        class="collidable"
                     ></a-gltf-model>
                     <a-gltf-model 
                         src={arduinoProject1} 
                         position="33 6.9 -38" 
                         scale=".5 .5 .5"
                         rotation="0 0 0"
+                        class="collidable"
                         grabbable
                     ></a-gltf-model>
                     <a-gltf-model 
@@ -311,14 +316,59 @@ function LabEditor(){
                         position="34.5 8 -38.7" 
                         scale="13 13 8"
                         rotation="0 -90 0"
+                        class="collidable"
                     ></a-gltf-model>
                     <a-gltf-model 
                         src={motor1} 
                         position="35 9.4 -38.5" 
                         scale="6 6 6"
                         rotation="0 90 0"
+                        class="collidable"
                     ></a-gltf-model>
                 </a-entity>
+                
+                  <a-gltf-model  
+                      src={securityCamera}
+                      position="-39 20 -39"
+                      scale=".5 .5 .5"
+                      rotation="180 -120 0"
+                  ></a-gltf-model>
+                  <a-gltf-model  
+                      src={securityCamera}
+                      position="39 20 39"
+                      scale=".5 .5 .5"
+                      rotation="180 50 0"
+                  ></a-gltf-model>
+
+
+              <a-gltf-model 
+                  src={ProjectorScreen} 
+                  position="39.4 15 -17" 
+                  scale="2 4 4"
+                  rotation="0 0 0"
+                  class="collidable"
+              ></a-gltf-model>
+
+              <a-gltf-model 
+                  src={Projector} 
+                  position="30 18 -17" 
+                  scale="5 5 5"
+                  rotation="0 90 0"
+                  
+              ></a-gltf-model>
+
+                <a-gltf-model  
+                    src={AC}
+                    position="39 18 5"
+                    rotation="0 -90 0"
+                    scale="13 9 4"
+                ></a-gltf-model>
+                <a-gltf-model  
+                    src={AC}
+                    position="-39 18 0"
+                    rotation="0 90 0"
+                    scale="13 9 4"
+                ></a-gltf-model>  
 
                 <a-entity
                     id="camera"
@@ -344,8 +394,7 @@ function LabEditor(){
                     pdf={pdf}
                     scale={2.5}
                     rotation="0 -90 0"
-                    position="34 5 19"
-                    class="selectable" />
+                    position="32 5 20" />
                 )}
 
 
@@ -374,8 +423,8 @@ function LabEditor(){
           <div className='d-flex justify-content-between align-items-center'>
             <h2 className="fs-4 m-0 fw-bolder">Editor Menu</h2>
             <div className="d-flex align-items-center">
-              <span id="help" className="m-0 fs-2 text-decoration-none text-dark  p-0"><IoHelp /></span>
-              <span id="closebtn" className='fs-2 m-0 p-0 text-dark'><IoCloseSharp/></span>
+              <span id="help" role="button" className="m-0 fs-2 text-decoration-none text-dark  p-0"><IoHelp /></span>
+              <span id="closebtn" role="button" className='fs-2 m-0 p-0 text-dark'><IoCloseSharp/></span>
             </div>
           </div>
           <hr />
@@ -413,7 +462,7 @@ function LabEditor(){
             </div>
         </div>
 
-            <div className='fs-4 cursor-pointer p-3 fw-bolder text-white' id="openEditor">&#9776; Open Editor Menu</div>
+            <div className='fs-4 cursor-pointer p-3 fw-bolder text-white' role="button" id="openEditor">&#9776; Open Editor Menu</div>
         </div>
 
     );

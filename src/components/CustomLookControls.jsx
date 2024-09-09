@@ -88,10 +88,10 @@ AFRAME.registerComponent('camera-collider', {
   },
   onKeyDown: function (event) {
     switch (event.key) {
-      case 'z': // Forward
+      case 'w': // Forward
         this.keys.forward = true;
         break;
-      case 'q': // Left
+      case 'a': // Left
         this.keys.left = true;
         break;
       case 's': // Backward
@@ -104,10 +104,10 @@ AFRAME.registerComponent('camera-collider', {
   },
   onKeyUp: function (event) {
     switch (event.key) {
-      case 'z': // Forward
+      case 'w': // Forward
         this.keys.forward = false;
         break;
-      case 'q': // Left
+      case 'a': // Left
         this.keys.left = false;
         break;
       case 's': // Backward

@@ -12,7 +12,7 @@ import officeChair from "../assets/3D_Components/office_chair.glb";
 function SharedDesk({ position = "0 0 0", rotation = "0 0 0" }) {
     return (
        <>
-       <a-entity position={position} rotation={rotation} className="collidable">
+       <a-entity position={position} rotation={rotation} >
             <a-gltf-model 
                 src={officeSharedDesk} 
                 position="0 6 9.1" 
