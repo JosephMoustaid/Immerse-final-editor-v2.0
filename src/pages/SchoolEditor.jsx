@@ -167,13 +167,22 @@ function SchoolEditor(){
 
 
 
-                <a-box position="0 -20 85" width="250" height="3" depth="60" material={`src: url(${woodTexture});`}   ></a-box>
-                <a-box position="0 -17 133" width="250" height="3" depth="40" material={`src: url(${woodTexture});`}  ></a-box> 
+                <a-box position="0 -20 85" class="collidable" width="250" height="3" depth="60" material={`src: url(${woodTexture});`}   ></a-box>
+                <a-box position="0 -17 133" class="collidable" width="250" height="3" depth="40" material={`src: url(${woodTexture});`}  ></a-box> 
 
                 <a-gltf-model src={schoolHall} scale=".37 .37 .37" position="0 -20 0"></a-gltf-model>
 
-                <a-box class="collidable" position="0 30 154" width="310" height="150" depth="1" material={`src: url(${wallTexture});`}></a-box>
+                <a-box class="collidable" position="0 30 152.6" width="310" height="150" depth="1" material={`src: url(${wallTexture});`}></a-box>
+                
+                {/*Collision Walls */}
+                <a-box class="collidable" position="152 30 152.6" rotation="0 90 0" width="120" height="150" depth="1" material={`src: url(${wallTexture});`}></a-box>
+                <a-box class="collidable" position="-152 30 152.6" rotation="0 90 0" width="120" height="150" depth="1" material={`src: url(${wallTexture});`}></a-box>
+                {/*Floor collider */}
+                <a-box class="collidable" position="0 -22 0" rotation="0 0 0" width="350" height=".1" depth="350" material={`src: url(${wallTexture});`}></a-box>
+                {/*Ceiling collider */}
+                <a-box class="collidable" position="0 105 0" rotation="0 0 0" width="350" height=".1" depth="350" material={`src: url(${wallTexture});`}></a-box>
 
+                
                 <a-gltf-model id="projectorScreen" src={ProjectorScreen} scale="20 20 20" position="0 60 150" rotation="0 90 0"></a-gltf-model>
 
 
