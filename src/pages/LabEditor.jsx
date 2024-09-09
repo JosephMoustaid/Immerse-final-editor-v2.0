@@ -18,9 +18,13 @@ import ceilingTexture from "../assets/textures/ceilingLamps.jpg"
 import teacherDesk from "../assets/3D_Components/teacher_desk.glb";
 import ProjectorScreen from "../assets/3D_Components/projector_screen.glb"; 
 import Projector from "../assets/3D_Components/projector.glb"; 
-import WindowBlind from "../assets/3D_Components/not_see_through_window.glb";
+import WindowBlind from "../assets/3D_Components/window.glb";
 import DeskEntity from '../components/DeskEntity.jsx';
-
+import deskShelf from "../assets/3D_Components/ikea_fjallbo_wall_shelf.glb";
+import arduinoProject1 from "../assets/3D_Components/arduinoProject1.glb";
+import motor1 from "../assets/3D_Components/motor1.glb";
+import SharedDesk from "../components/SharedDesk.jsx";
+import TofferLights from "../components/TofferLights.jsx";
 
 function LabEditor(){
     const sceneRef = useRef(null);
@@ -132,73 +136,80 @@ function LabEditor(){
                     ></a-gltf-model>
                   )
                 ))}
-                <a-light type="ambient" color="#ffffff" intensity="0.5"></a-light>
+                <TofferLights />
 
                     
                 {/* Floor */}
                 <a-plane 
                     rotation="-90 0 0" 
-                    width="160" // Doubled the width
-                    height="160" // Doubled the height
-                    src="#floorTexture" 
+                    width="80" // Doubled the width
+                    height="80" // Doubled the height
+                    material={`src: url(${floorTexture}); repeat: 4 5`}  
+                    class="collidable"
                 />
                 {/* Teacher Desk */}
                 <a-gltf-model 
-                    src={teacherDesk} 
-                    position="-65 1.9 0" 
-                    scale=".09 .09 .09"
-                    rotation="0 180 0"
+                     src={teacherDesk} 
+                     position="-30 1.9 0" 
+                     scale=".09 .09 .09"
+                     rotation="0 180 0"
                     class="collidable"
                 ></a-gltf-model>
-                {/* Walls */}
+                 {/* Walls */}
                 <a-box 
-                    class="collidable"
-                    position="0 20 -80" // Adjusted position for a larger room
+                    position="0 10 -40" 
                     rotation="0 0 0" 
-                    width="160" // Doubled the width
-                    height="40" // Doubled the height
+                    width="80" 
+                    height="20" 
                     depth="0.1" 
-                    src="#wallTexture"
+                    material={`src: url(${wallTexture}); repeat: 4 2`}  
+                    src={wallTexture}
+                    class="collidable "
+
                 />
 
                 <a-box 
-                    class="collidable"
-                    position="80 20 0" // Adjusted position
+                    position="40 10 0" 
                     rotation="0 -90 0" 
-                    width="160" 
-                    height="40" 
+                    width="80" 
+                    height="20" 
                     depth="0.1" 
-                    src="#wallTexture"
+                    material={`src: url(${wallTexture}); repeat: 4 2`}  
+                    src={wallTexture}
+                    repeat="4 2"
+                    class="collidable "
                 />
 
                 <a-box 
-                    class="collidable"
-                    position="-80 20 0" // Adjusted position
+                    position="-40 10 0" 
                     rotation="0 90 0" 
-                    width="160" 
-                    height="40" 
+                    width="80" 
+                    height="20" 
                     depth="0.1" 
-                    src="#wallTexture"
+                    material={`src: url(${wallTexture}); repeat: 4 2`}  
+                    src={wallTexture}
+                    class="collidable "
                 />
 
                 <a-box 
-                    class="collidable"
-                    position="0 20 80" // Adjusted position
+                    position="0 10 40" 
                     rotation="0 180 0" 
-                    width="160" 
-                    height="40" 
+                    width="80" 
+                    height="20" 
                     depth="0.1" 
-                    src="#wallTexture" 
+                    material={`src: url(${wallTexture});repeat: 4 2`}  
+                    src={wallTexture}
+                    class="collidable "
                 />
 
                 {/* Ceiling */}
                 <a-plane 
-                    
-                    position="0 40 0" // Adjusted position for a higher ceiling
+                    position="0 20 0" 
                     rotation="90 0 0" 
-                    width="160" 
-                    height="160" 
-                    src="#ceilingTexture"
+                    width="80" 
+                    height="80" 
+                    material={`src: url(${ceilingTexture}); repeat: 2 3`}  
+                    src={ceilingTexture}
                 />
 
                 {/* Projector screen */}
@@ -219,44 +230,47 @@ function LabEditor(){
                     rotation="0 90 0"
                 ></a-gltf-model>
 
-                     {/*Window blinds  */}
-                <a-gltf-model 
-                    src={WindowBlind} 
-                    position="-18 8 79" 
-                    scale="2 2 2"
-                    rotation="0 0 0"
-                ></a-gltf-model>
-                <a-gltf-model 
-                    src={WindowBlind} 
-                    position="0 8 79" 
-                    scale="2 2 2"
-                    rotation="0 0 0"
-                ></a-gltf-model>
-                <a-gltf-model 
-                    src={WindowBlind} 
-                    position="18 8 79" 
-                    scale="2 2 2"
-                    rotation="0 0 0"
-                ></a-gltf-model>
+                <a-entity>
+                    <a-gltf-model 
+                        src={WindowBlind} 
+                        position="-18 8 39.5" 
+                        scale="2 2 2"
+                        rotation="0 0 0"
+                    ></a-gltf-model>
+                    <a-gltf-model 
+                        src={WindowBlind} 
+                        position="0 8 39.5" 
+                        scale="2 2 2"
+                        rotation="0 0 0"
+                    ></a-gltf-model>
+                    <a-gltf-model 
+                        src={WindowBlind} 
+                        position="18 8 39.5" 
+                        scale="2 2 2"
+                        rotation="0 0 0"
+                    ></a-gltf-model>
+                </a-entity>
 
-                <a-gltf-model 
-                    src={WindowBlind} 
-                    position="-18 8 -79" 
-                    scale="2 2 2"
-                    rotation="0 0 0"
-                ></a-gltf-model>
-                <a-gltf-model 
-                    src={WindowBlind} 
-                    position="0 8 -79" 
-                    scale="2 2 2"
-                    rotation="0 0 0"
-                ></a-gltf-model>
-                <a-gltf-model 
-                    src={WindowBlind} 
-                    position="18 8 -79" 
-                    scale="2 2 2"
-                    rotation="0 0 0"
-                ></a-gltf-model>
+                <a-entity>
+                    <a-gltf-model 
+                        src={WindowBlind} 
+                        position="-18 8 -39.5" 
+                        scale="2 2 2"
+                        rotation="0 180 0"
+                    ></a-gltf-model>
+                    <a-gltf-model 
+                        src={WindowBlind} 
+                        position="0 8 -39.5" 
+                        scale="2 2 2"
+                        rotation="0 180 0"
+                    ></a-gltf-model>
+                    <a-gltf-model 
+                        src={WindowBlind} 
+                        position="18 8 -39.5" 
+                        scale="2 2 2"
+                        rotation="0 180 0"
+                    ></a-gltf-model>
+                </a-entity>
 
 
                 {/* Desks with chairs with lights and pcs */}
@@ -273,7 +287,38 @@ function LabEditor(){
                 <DeskEntity position="12 0 36" rotation="0 180 0"/>
                 <DeskEntity position="24 0 36" rotation="0 180 0"/>
 
-                
+
+
+                <SharedDesk position='0 0 0' rotation='0 0 0'/>
+                <SharedDesk position='0 0 -20' rotation='0 0 0'/>
+       
+                <a-entity>
+                    <a-gltf-model 
+                        src={deskShelf} 
+                        position="34.5 5 -38.7" 
+                        scale="13 13 8"
+                        rotation="0 -90 0"
+                    ></a-gltf-model>
+                    <a-gltf-model 
+                        src={arduinoProject1} 
+                        position="33 6.9 -38" 
+                        scale=".5 .5 .5"
+                        rotation="0 0 0"
+                        grabbable
+                    ></a-gltf-model>
+                    <a-gltf-model 
+                        src={deskShelf} 
+                        position="34.5 8 -38.7" 
+                        scale="13 13 8"
+                        rotation="0 -90 0"
+                    ></a-gltf-model>
+                    <a-gltf-model 
+                        src={motor1} 
+                        position="35 9.4 -38.5" 
+                        scale="6 6 6"
+                        rotation="0 90 0"
+                    ></a-gltf-model>
+                </a-entity>
 
                 <a-entity
                     id="camera"
@@ -289,13 +334,18 @@ function LabEditor(){
                 </a-entity>
                 {video.visible && (
                     <VideoViewer 
-                    position="78.5 18 -17" 
-                    rotation="0 -90 0" 
-                    scale="10 15 5" 
+                    scale="5 5 5"
+                    position="39 11 -17"
+                    rotation="0 -90 0"
                     />
                 )}
                 {pdf.visible && (
-                    <PdfViewer pdf={PDF} scale={3} rotation="0 -90 0" class="selectable" position="75 8 30" />
+                    <PdfViewer 
+                    pdf={pdf}
+                    scale={2.5}
+                    rotation="0 -90 0"
+                    position="34 5 19"
+                    class="selectable" />
                 )}
 
 
