@@ -142,10 +142,9 @@ function SchoolEditor(){
                       key={asset.id}
                       class="selectable collidable"
                       src={asset.src}
-                      position="0 0 -3"
                       scale="1 1 1"
-                      rotation="0 0 0"
-                      material="color: #00FF00"
+                      rotation="-2 -210 0"
+                      position="-50 0 115"
                     ></a-gltf-model>
                   )
                 ))}
@@ -166,7 +165,6 @@ function SchoolEditor(){
 
                 <a-entity light="type: ambient; intensity: 0.1"></a-entity>
 
-                <a-box position="0 30 154" width="310" height="150" depth="1" class="collidable" material="src:#CeilingTexture;"></a-box>
 
 
                 <a-box position="0 -20 85" width="250" height="3" depth="60" material={`src: url(${woodTexture});`}   ></a-box>
@@ -174,7 +172,7 @@ function SchoolEditor(){
 
                 <a-gltf-model src={schoolHall} scale=".37 .37 .37" position="0 -20 0"></a-gltf-model>
 
-                <a-box position="0 30 154" width="310" height="150" depth="1" material="src:#CeilingTexture;"></a-box>
+                <a-box class="collidable" position="0 30 154" width="310" height="150" depth="1" material={`src: url(${wallTexture});`}></a-box>
 
                 <a-gltf-model id="projectorScreen" src={ProjectorScreen} scale="20 20 20" position="0 60 150" rotation="0 90 0"></a-gltf-model>
 
@@ -252,17 +250,18 @@ function SchoolEditor(){
                 </a-entity>
                 {video.visible && (
                     <VideoViewer 
-                    scale="5 5 5"
-                    position="39 11 -17"
-                    rotation="0 -90 0"
+                    position="0 30 145"
+                    rotation="0 180 0"
+                    scale="20 20 20"
                     />
                 )}
                 {pdf.visible && (
                     <PdfViewer 
                     pdf={pdf}
-                    scale={2.5}
-                    rotation="0 -90 0"
-                    position="32 5 20" />
+                    scale={4}
+                    rotation="-2 210 0"
+                    position="50 0 115"
+                    />
                 )}
 
 
