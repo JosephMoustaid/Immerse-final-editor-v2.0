@@ -14,7 +14,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import wallTexture from "../assets/textures/blueWall2.jpg";
 import lights from "../assets/3D_Components/ceiling_lamp_-_11mb.glb";
 import floorTexture from "../assets/textures/floor6.jpg";
-import ceilingTexture from "../assets/textures/ceilingLamps.jpg"
+import ceilingTexture from "../assets/textures/ceilingLamps.jpg";
 import teacherDesk from "../assets/3D_Components/teacher_desk.glb";
 import ProjectorScreen from "../assets/3D_Components/projector_screen.glb"; 
 import Projector from "../assets/3D_Components/projector.glb"; 
@@ -27,13 +27,18 @@ import SharedDesk from "../components/SharedDesk.jsx";
 import TofferLights from "../components/TofferLights.jsx";
 import securityCamera from "../assets/3D_Components/security_camera.glb";
 import AC from "../assets/3D_Components/conditioner_slide_dc.glb";
+import { useNavigate } from "react-router-dom";
 
+import useAnnotationMaker from "../components/AnnotationMaker.jsx";
 function LabEditor(){
     const sceneRef = useRef(null);
     const cameraRef = useRef(null);
    
+    const { annotations } = useAnnotationMaker(sceneRef);
 
+    const navigate = useNavigate();
 
+  
   const [assets, setAssets] = useState([
     { id: 'Window', name: 'Window', src: Window, visible: false },
   ]);
@@ -42,6 +47,9 @@ function LabEditor(){
   const [pdf, setPdf] = useState({ id: 'PDF', name: 'Course PDF', visible: false });
   const [video, setVideo] = useState({ id: 'Video', name: 'Course Video', visible: false });
 
+  const hadnleAddannotationsButton = () =>{
+    navigate("add-annotations");
+  }
   const toggleVideoVisibility = () => {
     setVideo((prevVideo) => ({ ...prevVideo, visible: !prevVideo.visible }));
   };
@@ -129,7 +137,7 @@ function LabEditor(){
                   asset.visible && (
                     <a-gltf-model
                       key={asset.id}
-                      class="selectable collidable"
+                      class="selectable collidable annotatable"
                       src={asset.src}
                       position="10 8 10"
                       scale="1 1 1"
@@ -138,6 +146,35 @@ function LabEditor(){
                     ></a-gltf-model>
                   )
                 ))}
+
+                {/* Annotations Rendering */}
+              {annotations.map((annotation) => (
+                <a-entity key={annotation.id}>
+                  {/* Line from model to annotation */}
+                  <a-entity
+                    line={`start: ${annotation.position.x} ${annotation.position.y} ${annotation.position.z}; 
+                        end: ${annotation.position.x + 0.5} ${annotation.position.y + 0.5} ${annotation.position.z + 0.5}; color: green; opacity: 0.7`}
+                    material="color: green; opacity: 0.7"
+                  ></a-entity>
+
+                  {/* Annotation box */}
+                  <a-entity
+                    geometry="primitive: plane; width: .9; height: .5"
+                    material="color: white; opacity: 0.8"
+                    position={`${annotation.position.x + 0.5} ${annotation.position.y + 0.5} ${annotation.position.z + 0.5}`}
+                    rotation={annotation.rotation}
+                    scale="1 1 1"
+                  >
+                    {/* Annotation Text */}
+                    <a-text
+                      value={`${annotation.name}: ${annotation.description}`}
+                      color="black"
+                      align="center"
+                      width=".9"
+                    ></a-text>
+                  </a-entity>
+                </a-entity>
+              ))}
                 <TofferLights />
 
                     
@@ -381,6 +418,17 @@ function LabEditor(){
                     position="0 8 0"
                     >
                     <a-cursor></a-cursor>
+                </a-entity><a-entity
+                    id="camera"
+                    camera
+                    look-controls
+                    my-custom-look-controls
+                    camera-collider="speed: 1; radius: 0.5"
+                    ref={cameraRef}
+                    rotation="0 0 0"
+                    position="0 8 0"
+                    >
+                    <a-cursor></a-cursor>
                 </a-entity>
                 {video.visible && (
                     <VideoViewer 
@@ -433,6 +481,14 @@ function LabEditor(){
             {assets.map((asset, index) => (
               <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                 {asset.name}
+                {asset.visible ? (
+                  <button 
+                    className={`btn btn-dark`} 
+                    onClick={() => hadnleAddannotationsButton(index)}>
+                  Add  Annotations
+                  </button>
+                ):""}
+                
                 <button 
                   className={`btn ${asset.visible ? 'btn-danger' : 'btn-dark'}`} 
                   onClick={() => toggleVisibility(index)}>

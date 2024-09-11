@@ -27,8 +27,16 @@ import roundDesk from "../assets/3D_Components/secretary_desk_-_20mb.glb"
 import officeChair from "../assets/3D_Components/office_chair_modern.glb"
 import laptop from "../assets/3D_Components/laptop_free.glb"
 import deskLights from "../assets/3D_Components/desk_lamp_grren.glb"
-function SchoolEditor(){
+import { useNavigate } from "react-router-dom";
 
+function SchoolEditor(){
+  
+  const navigate = useNavigate();
+
+  
+  const hadnleAddannotationsButton = () =>{
+    navigate("add-annotations");
+  }
     const lampPositions = [
         // First row
         [{ x: 0, z: 93 }, { x: -40, z: 93 }, { x: 40, z: 93 }, { x: -80, z: 93 }, { x: 80, z: 93 }],
@@ -309,6 +317,13 @@ function SchoolEditor(){
             {assets.map((asset, index) => (
               <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
                 {asset.name}
+                {asset.visible ? (
+                  <button 
+                    className={`btn btn-dark`} 
+                    onClick={() => hadnleAddannotationsButton(index)}>
+                  Add  Annotations
+                  </button>
+                ):""}
                 <button 
                   className={`btn ${asset.visible ? 'btn-danger' : 'btn-dark'}`} 
                   onClick={() => toggleVisibility(index)}>

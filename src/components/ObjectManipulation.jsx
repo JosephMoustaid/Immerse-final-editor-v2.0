@@ -90,7 +90,7 @@ export const modifyObjectWithKeys = (event, selectedObject, setSelectedObject, c
       case 'w': // Move up
         newPosition.y += moveSpeed;
         break;
-      case 'c': // Move down
+      case 's': // Move down
         newPosition.y -= moveSpeed;
         break;
 
@@ -98,7 +98,7 @@ export const modifyObjectWithKeys = (event, selectedObject, setSelectedObject, c
       case 'a': // Rotate left
         selectedObject.setAttribute('rotation', { x: rotation.x, y: rotation.y - 5, z: rotation.z });
         break;
-      case 'e': // Rotate right
+      case 'd': // Rotate right
         selectedObject.setAttribute('rotation', { x: rotation.x, y: rotation.y + 5, z: rotation.z });
         break;
 
